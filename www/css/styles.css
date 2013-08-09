@@ -4,6 +4,7 @@
 .image_cell { width:249px; padding-right:20px; }
 .image_cell img { padding:20px; background:#fff; border:#999 1px solid; }
 img { max-width:100%; }
+.center { text-align:center; }
 
 @media (max-width: 500px) {
 	.row, .row > div, .row > div > div { display:block; }

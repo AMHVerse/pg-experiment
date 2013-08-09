@@ -32,7 +32,7 @@ function preinit() {
 				options.filter = firstname;
 				options.multiple = true;
 				if(navigator.contacts) {
-					navigator.contacts.find(["name"],function(result) {
+					navigator.contacts.find(["name","phoneNumbers"],function(result) {
 						found = false;
 						for(item in result) {
 							var fc = result[item];
@@ -50,13 +50,14 @@ function preinit() {
 							} /*else {
 								var delcont = navigator.contacts.create();
 								delcont.name = fc.name;
+								delcont.id = fc.id;
 								delcont.remove(function() {}, function(e) { console.log(e) });
 							}*/
 						}
 						if(!found) {
 							addContactButton($p,firstname,lastname,phone, email);
 						} else {
-							target.find('.actions').append('<a href="" class="addContact ui-disabled" data-role="button">Added</a>');
+							$p.find('.actions').append('<a href="" class="addContact ui-disabled" data-role="button">Added</a>');
 						}
 					},function(error) {
 						console.log(error);
@@ -74,6 +75,8 @@ function addContactButton(target,firstname,lastname,phone,email) {
 	target.find('.actions').append('<a href="" class="addContact" data-role="button">Add '+firstname+'</a>');
 	var addLink = target.find('.addContact');
 	addLink.click(function() {
+		var addLink = $(this);
+		
 		var contact = navigator.contacts.create();
 		contact.displayName = firstname + " " + lastname;
 		
@@ -82,14 +85,17 @@ function addContactButton(target,firstname,lastname,phone,email) {
 		name.familyName = lastname;
 		contact.name = name;
 		
-		var phoneNumbers = [new ContactField('mobile', phone, true)];
+		var phoneNumbers = [new ContactField('mobile', phone,false)];
 		contact.phoneNumbers = phoneNumbers;
 		
-		var emails = [new ContactField('email', email, true)];
+		var emails = [new ContactField('email', email,false)];
 		contact.emails = emails;
-		console.log(contact);
+		
+		var organizations = [new ContactOrganization({name:'SCK Webworks'})]
+		contact.organizations = organizations;
+		
 		contact.save(function() {
-			$(this).unbind('click').find('.ui-btn-text').text('Added').addClass('ui-disabled');
+			addLink.unbind('click').find('.ui-btn-text').text('Added').addClass('ui-disabled');
 		},function(e) {
 			console.log(e);
 		});
