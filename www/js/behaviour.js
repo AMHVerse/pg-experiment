@@ -11,7 +11,9 @@ function preinit() {
 		$('body').append(pagecontent);
 	}
 	
-	var panel = $('.navmenu-panel').detach();
+	var panel = $('.navmenu-panel');
+	
+	$.mobile.defaultPageTransition = "slide";
 	
 	$('div[data-role="page"]').each(function(i) {
 		var $p = $(this);
@@ -21,14 +23,14 @@ function preinit() {
 		$p.find('div[data-role="header"]').append('<a href="#navmenu-panel'+i+'" data-role="button" data-icon="bars" data-iconpos="notext"></a>');
 		
 		if($p.attr('data-phone')) {
-			var firstname = $p.attr('data-firstname');
-			var lastname = $p.attr('data-lastname');
-			var phone = $p.attr('data-phone');
-			var email = $p.attr('data-email');
-			var options = new ContactFindOptions();
-			options.filter = firstname;
-			options.multiple = true;
 			document.addEventListener("deviceready", function() {
+				var firstname = $p.attr('data-firstname');
+				var lastname = $p.attr('data-lastname');
+				var phone = $p.attr('data-phone');
+				var email = $p.attr('data-email');
+				var options = new ContactFindOptions();
+				options.filter = firstname;
+				options.multiple = true;
 				if(navigator.contacts) {
 					navigator.contacts.find(["name"],function(result) {
 						found = false;
@@ -63,9 +65,7 @@ function preinit() {
 			},true);
 		}
 	});
-	$.mobile.defaultPageTransition = "slide";
-	
-	panel.hide();
+	panel.detach();
 	
 	document.addEventListener("deviceready", onDeviceReady, true);
 };
