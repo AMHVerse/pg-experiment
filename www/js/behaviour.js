@@ -32,11 +32,10 @@ function preinit() {
 				options.filter = firstname;
 				options.multiple = true;
 				if(navigator.contacts) {
-					navigator.contacts.find(["name","phoneNumbers"],function(result) {
+					navigator.contacts.find(["displayName","name","phoneNumbers"],function(result) {
 						found = false;
 						for(item in result) {
 							var fc = result[item];
-							console.log(fc);
 							var phonefound = false;
 							if(fc.phoneNumbers) {
 								for(var i = 0; i < fc.phoneNumbers.length; i++) {
@@ -45,7 +44,7 @@ function preinit() {
 									}
 								}
 							}
-							if(fc.name.givenName == firstname && fc.name.familyName == lastname && phonefound) {
+							if((fc.displayName = firstname + " " + lastname || fc.name.givenName == firstname && fc.name.familyName == lastname) && phonefound) {
 								found = true;
 							} /*else {
 								var delcont = navigator.contacts.create();
@@ -55,7 +54,7 @@ function preinit() {
 							}*/
 						}
 						if(!found) {
-							addContactButton($p,firstname,lastname,phone, email);
+							addContactButton($p,firstname,lastname,phone, email, $p.find('.image_cell').find('img').attr('src'));
 						} else {
 							$p.find('.actions').append('<a href="" class="addContact ui-disabled" data-role="button">Added</a>');
 						}
@@ -71,7 +70,7 @@ function preinit() {
 	document.addEventListener("deviceready", onDeviceReady, true);
 };
 
-function addContactButton(target,firstname,lastname,phone,email) {
+function addContactButton(target,firstname,lastname,phone,email,img) {
 	target.find('.actions').append('<a href="" class="addContact" data-role="button">Add '+firstname+'</a>');
 	var addLink = target.find('.addContact');
 	addLink.click(function() {
@@ -90,6 +89,9 @@ function addContactButton(target,firstname,lastname,phone,email) {
 		
 		var emails = [new ContactField('email', email,false)];
 		contact.emails = emails;
+		
+		var photos = [new ContactField('photo', img,false)];
+		contact.photos = photos;
 		
 		var organizations = [new ContactOrganization({name:'SCK Webworks'})]
 		contact.organizations = organizations;
