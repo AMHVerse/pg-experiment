@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns = "http://www.w3.org/ns/widgets"
+        xmlns:gap = "http://phonegap.com/ns/1.0"
+        id        = "com.phonegap.example"
+        versionCode="10" 
+        version   = "1.0.0">
+
+    <name>SCK Contacts App</name>
+
+    <description>
+        An application to add SCK contacts to your phone
+    </description>
+
+    <author href="http://www.sck-webworks.co.uk/" email="team@sck-webworks.co.uk">
+        SCK Webworks
+    </author>
+
+</widget>
