@@ -28,6 +28,8 @@ function preinit() {
 				var lastname = $p.attr('data-lastname');
 				var phone = $p.attr('data-phone');
 				var email = $p.attr('data-email');
+				var img = new Image();
+				img.src = $p.find('.image_cell').find('img').attr('src');
 				var options = new ContactFindOptions();
 				options.filter = firstname;
 				options.multiple = true;
@@ -54,7 +56,7 @@ function preinit() {
 							}*/
 						}
 						if(!found) {
-							addContactButton($p,firstname,lastname,phone, email, $p.find('.image_cell').find('img').attr('src'));
+							addContactButton($p,firstname,lastname,phone, email, getBase64Image(img));
 						} else {
 							$p.find('.actions').append('<a href="" class="addContact ui-disabled" data-role="button">Added</a>');
 						}
@@ -136,6 +138,25 @@ function applyTemplate(temp, data) {
 		newText = newText.replace(new RegExp('{{'+nme+'}}','g'), data[nme] || '');
 	}
 	return newText;
+}
+
+function getBase64Image(img) {
+    // Create an empty canvas element
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    // Copy the image contents to the canvas
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+    // Get the data-URL formatted image
+    // Firefox supports PNG and JPEG. You could check img.src to
+    // guess the original format, but be aware the using "image/jpg"
+    // will re-encode the image.
+    var dataURL = canvas.toDataURL("image/png");
+
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
 }
 
 var defaults = [
