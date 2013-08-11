@@ -147,6 +147,7 @@ function buildContent(team) {
 	});
 	
 	$('.pagelink').click(function() {
+		$('.panel-cover').hide();
 		var targetid = $(this).attr('href');
 		visid = $('.page:visible').attr('id');
 		
