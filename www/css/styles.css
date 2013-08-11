@@ -30,7 +30,7 @@
 }
 
 html { padding:0px; margin:0px; }
-body { color:#2d2d2d; padding:0px; margin:0px; font-family:'Titillium Web', Calibri, Arial, Helvetica, sans-serif;  background:#eaebed url(back.png) top left repeat; font-size:85%; min-width:993px; font-weight:400; }
+body { color:#2d2d2d; padding:0px; margin:0px; font-family:'Titillium Web', Calibri, Arial, Helvetica, sans-serif;  background:#eaebed url(back.png) top left repeat; font-size:85%;  font-weight:400; }
 h1, h2, h3, h4, h5, .h1, .h2, .h3, p { margin:0; padding:0 0 17px 0; font-weight:normal; }
 h1, h2, h3, h4, h5, .h1, .h2, .h3 { color:#2d80c5; }
 button { font-family:'Titillium Web', Calibri, Arial, Helvetica, sans-serif; font-weight:600; }
