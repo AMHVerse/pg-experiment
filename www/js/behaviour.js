@@ -120,7 +120,7 @@ function buildContent(team) {
 						if(!found) {
 							addContactButton($p,firstname,lastname,phone, email, getBase64Image(img));
 						} else {
-							$p.find('.actions').append('<a href="" class="addContact btn ui-disabled" data-role="button">Added</a>');
+							$p.find('.actions').append('<a href="" class="addContact btn ui-disabled">Added</a>');
 						}
 					}
 				});
@@ -200,7 +200,7 @@ function addContactButton(target,firstname,lastname,phone,email,img) {
 		contact.organizations = organizations;
 		
 		contact.save(function() {
-			addLink.unbind('click').find('.ui-btn-text').text('Added').addClass('ui-disabled');
+			addLink.unbind('click').text('Added').addClass('ui-disabled');
 		},function(e) {
 			console.log(e);
 		});
