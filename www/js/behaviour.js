@@ -1,16 +1,12 @@
 var db = 0;
+var navused = true;
 
 document.addEventListener("deviceready", onDeviceReady, true);
 document.addEventListener("menubutton", function() {
 	$('.page:visible').find('.bars').click();
 	window.scrollTo(0,0);
-}, true);
-document.addEventListener("backbutton", function() {
-	if($('#home:visible').length == 0) {
-		$('#homelink').click();
-		return false;
-	}
-}, true);
+}, false);
+
 
 function onDeviceReady() {
 	//navigator.notification.vibrate(0);
@@ -47,7 +43,27 @@ function onDeviceReady() {
 	} else {
 		buildContent(defaults);
 	}
+	
+	if(location.hash) {
+		getPageFromHash();
+	}
+	$(window).bind('hashchange', function() {
+		if(navused) {
+			getPageFromHash();
+			navused = true;
+		}
+	});
 };
+
+function getPageFromHash() {
+	var myhash = location.hash;
+	if(myhash == "") {
+		myhash = '#home';
+	}
+	if(!$(myhash+':visible').length > 0) {
+		$('.pagelink[href*='+myhash+']:eq(0)').click();
+	}
+}
 
 function buildContent(team) {
 
@@ -146,7 +162,6 @@ function buildContent(team) {
 				$('#navmenu-panel:visible').animate({width:'hide'},400);
 			}
 		}
-		return false;
 	});
 	
 	$('.loading').remove();
