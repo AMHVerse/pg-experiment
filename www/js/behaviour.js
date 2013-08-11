@@ -2,11 +2,14 @@ var db = 0;
 
 document.addEventListener("deviceready", onDeviceReady, true);
 document.addEventListener("menubutton", function() {
-	$('.page:visiblie').find('.bars').click();
+	$('.page:visible').find('.bars').click();
 	window.scrollTo(0,0);
 }, true);
 document.addEventListener("backbutton", function() {
-	$('#home').click();
+	if($('#home:visible').length == 0) {
+		$('#homelink').click();
+		return false;
+	}
 }, true);
 
 function onDeviceReady() {
