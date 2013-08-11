@@ -1,79 +1,162 @@
-function preinit() {
+var db = 0;
+
+document.addEventListener("deviceready", onDeviceReady, true);
+document.addEventListener("menubutton", function() {
+	$('.page:visiblie').find('.bars').click();
+	window.scrollTo(0,0);
+}, true);
+document.addEventListener("backbutton", function() {
+	$('#home').click();
+}, true);
+
+function onDeviceReady() {
+	//navigator.notification.vibrate(0);
 	
-	var contacts = defaults;
+	var networkState = navigator.network.connection.type;
+
+	var states = {};
+	states[Connection.UNKNOWN]  = 'Unknown connection';
+	states[Connection.ETHERNET] = 'Ethernet connection';
+	states[Connection.WIFI]     = 'WiFi connection';
+	states[Connection.CELL_2G]  = 'Cell 2G connection';
+	states[Connection.CELL_3G]  = 'Cell 3G connection';
+	states[Connection.CELL_4G]  = 'Cell 4G connection';
+	states[Connection.NONE]     = 'No network connection';
 	
+	var teams = window.localStorage.getItem("team");
+	if(teams) {
+		defaults = $.parseJSON(teams);
+		console.log(defaults);
+	}
+	
+	if(networkState == Connection.WIFI || networkState == Connection.ETHERNET || networkState == Connection.CELL_4G) {
+		$.ajax({
+			url:"http://www.sck-webworks.co.uk/behaviour/team.php",
+			success:function(data) {
+				window.localStorage.removeItem("team");
+				window.localStorage.setItem("team", JSON.stringify(data));
+				buildContent(data);
+			},
+			error:function(e) {
+				buildContent(defaults);
+			}
+		});
+		resized();
+	} else {
+		buildContent(defaults);
+	}
+};
+
+function buildContent(team) {
+
+	var contacts = team;
 	
 	for(id in contacts) {
 		contact = contacts[id];
 		var licontent = applyTemplate(listtemplate,contact);
 		var pagecontent = applyTemplate(contacttemplate,contact);
-		$('.nav').append(licontent);
+		$('.listview').append(licontent);
 		$('body').append(pagecontent);
 	}
 	
 	var panel = $('.navmenu-panel');
 	
-	$.mobile.defaultPageTransition = "slide";
+	$('.page').hide()
 	
-	$('div[data-role="page"]').each(function(i) {
-		var $p = $(this);
-		var clone = panel.clone();
-		clone.attr('id',"navmenu-panel"+i);
-		$p.append(clone);
-		$p.find('div[data-role="header"]').append('<a href="#navmenu-panel'+i+'" data-role="button" data-icon="bars" data-iconpos="notext"></a>');
+	setTimeout(function () {
 		
-		if($p.attr('data-phone')) {
-			document.addEventListener("deviceready", function() {
-				var firstname = $p.attr('data-firstname');
-				var lastname = $p.attr('data-lastname');
-				var phone = $p.attr('data-phone');
-				var email = $p.attr('data-email');
-				var img = new Image();
-				img.src = $p.find('.image_cell').find('img').attr('src');
-				var options = new ContactFindOptions();
-				options.filter = firstname;
-				options.multiple = true;
-				if(navigator.contacts) {
-					navigator.contacts.find(["displayName","name","phoneNumbers"],function(result) {
+		var options = new ContactFindOptions();
+		options.filter = '';
+		options.multiple = true;
+		if(navigator.contacts) {
+			navigator.contacts.find(["displayName","name","phoneNumbers"],function(result) {
+		
+				$('.page').each(function(i) {
+					var $p = $(this);
+					
+					if($p.attr('data-phone')) {
+						var firstname = $p.attr('data-firstname');
+						var lastname = $p.attr('data-lastname');
+						var phone = $p.attr('data-phone');
+						var email = $p.attr('data-email');
+						var img = new Image();
+						img.src = $p.find('.image_cell').find('img').attr('src');
+						
 						found = false;
 						for(item in result) {
 							var fc = result[item];
-							var phonefound = false;
-							if(fc.phoneNumbers) {
-								for(var i = 0; i < fc.phoneNumbers.length; i++) {
-									if(fc.phoneNumbers[i].value == phone) {
-										phonefound = true;
+							if(fc.displayName = firstname + " " + lastname || fc.name.givenName == firstname && fc.name.familyName == lastname) {
+								var phonefound = false;
+								if(fc.phoneNumbers) {
+									for(var i = 0; i < fc.phoneNumbers.length; i++) {
+										if(fc.phoneNumbers[i].value == phone) {
+											phonefound = true;
+										}
 									}
 								}
+								if(phonefound) {
+									found = true;
+								}
 							}
-							if((fc.displayName = firstname + " " + lastname || fc.name.givenName == firstname && fc.name.familyName == lastname) && phonefound) {
-								found = true;
-							} /*else {
-								var delcont = navigator.contacts.create();
-								delcont.name = fc.name;
-								delcont.id = fc.id;
-								delcont.remove(function() {}, function(e) { console.log(e) });
-							}*/
 						}
 						if(!found) {
 							addContactButton($p,firstname,lastname,phone, email, getBase64Image(img));
 						} else {
-							$p.find('.actions').append('<a href="" class="addContact ui-disabled" data-role="button">Added</a>');
+							$p.find('.actions').append('<a href="" class="addContact btn ui-disabled" data-role="button">Added</a>');
 						}
-					},function(error) {
-						console.log(error);
-					},options);
-				}
-			},true);
+					}
+				});
+			},function(error) {
+				console.log(error);
+			},options);
 		}
-	});
-	panel.detach();
+	}, 10);
 	
-	document.addEventListener("deviceready", onDeviceReady, true);
-};
+	$('.navmenu-panel').hide();
+	$('#home').addClass('page');
+	
+	resized();
+	$(window).bind('resize',resized)
+	
+	$('.bars').click(function() {
+		var targetid = $(this).attr('href');
+		$('.panel-cover').show().click(function() {
+			$(this).hide();
+			$(targetid).animate({width:'hide'},400);
+		});
+		$(targetid).animate({width:'show'},400);
+		return false;
+	});
+	
+	$('.pagelink').click(function() {
+		var targetid = $(this).attr('href');
+		visid = $('.page:visible').attr('id');
+		
+		if($(targetid).length > 0 && targetid != '#'+visid) {
+			if(targetid == '#home') {
+				$('.page:visible').animate({width:'hide',left:'100%'},400);
+				$(targetid).animate({width:'show'},400);
+			} else {
+				$('.page:visible').animate({width:'hide'},400);
+				$(targetid).css('left','100%').animate({width:'show',left:'0%'},400);
+			}
+			if($('#navmenu-panel:visible').length > 0) {
+				$('#navmenu-panel:visible').animate({width:'hide'},400);
+			}
+		}
+		return false;
+	});
+	
+	$('.loading').remove();
+}
+
+function resized() {
+	$('.container').width($(window).width());
+	$('.nav-container').width($(window).width()*.6).height($(document).height());
+}
 
 function addContactButton(target,firstname,lastname,phone,email,img) {
-	target.find('.actions').append('<a href="" class="addContact" data-role="button">Add '+firstname+'</a>');
+	target.find('.actions').append('<a href="" class="addContact btn">Add '+firstname+'</a>');
 	var addLink = target.find('.addContact');
 	addLink.click(function() {
 		var addLink = $(this);
@@ -103,35 +186,12 @@ function addContactButton(target,firstname,lastname,phone,email,img) {
 		},function(e) {
 			console.log(e);
 		});
+		return false;
 	});
 }
 
-function onDeviceReady() {
-	$('.vib').click(function() {
-		navigator.notification.vibrate(0);
-		
-		var networkState = navigator.network.connection.type;
-
-		var states = {};
-		states[Connection.UNKNOWN]  = 'Unknown connection';
-		states[Connection.ETHERNET] = 'Ethernet connection';
-		states[Connection.WIFI]     = 'WiFi connection';
-		states[Connection.CELL_2G]  = 'Cell 2G connection';
-		states[Connection.CELL_3G]  = 'Cell 3G connection';
-		states[Connection.CELL_4G]  = 'Cell 4G connection';
-		states[Connection.NONE]     = 'No network connection';
-		alert(states[networkState]);
-	});
-};
-
-$(document).bind("mobileinit", function() {
-	$( ".navmenu-link" ).on( "click", function() {
-		page.find( ".navmenu-panel" ).panel( "open" );
-	});
-});
-
-var contacttemplate = '<div data-role="page" data-theme="a" id="{{firstname}}{{lastname}}" data-lastname="{{lastname}}" data-firstname="{{firstname}}" data-phone="{{phone}}" data-email="{{email}}"><div data-role="header" data-position="fixed"><h1>{{firstname}} {{lastname}}</h1></div><div data-role="content" data-theme="a"><div class="row"><div><div class="image_cell"><div><img src="images/{{img}}" alt="{{firstname}} {{lastname}}" /></div></div><div><h2>{{position}}</h2><p>{{description}}</p><div data-role="controlgroup" class="actions"><a href="{{url}}" data-rel="external" data-role="button">More about {{firstname}}</a></div></div></div></div></div></div>';
-var listtemplate = '<li><a href="#{{firstname}}{{lastname}}">{{firstname}} {{lastname}}<br /><em>{{position}}</em></a></li>';
+var contacttemplate = '<div id="{{firstname}}{{lastname}}" data-lastname="{{lastname}}" data-firstname="{{firstname}}" data-phone="{{phone}}" data-email="{{email}}" class="page"><div class="container"><div class="header"><a href="#navmenu-panel" class="bars"></a><h1>{{firstname}} {{lastname}}</h1></div><div class="content"><div class="row"><div><div class="image_cell"><div><img src="images/{{img}}" alt="{{firstname}} {{lastname}}" /></div></div><div><h2>{{position}}</h2><p>{{description}}</p><div class="actions"><a href="{{url}}" class="btn">More about {{firstname}}</a></div></div></div></div></div></div></div>';
+var listtemplate = '<li><a href="#{{firstname}}{{lastname}}" class="pagelink">{{firstname}} {{lastname}}<br /><em>{{position}}</em></a></li>';
 function applyTemplate(temp, data) {
 	var newText = temp;
 	for(var nme in data) {

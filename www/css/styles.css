@@ -1,3 +1,52 @@
+@font-face {
+	font-family: 'Titillium Web';
+	font-style: normal;
+	font-weight: 400;
+	src: url('titilliumweb-regular-webfont.eot');
+	src: url('titilliumweb-regular-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('titilliumweb-regular-webfont.svg#titillium_webregular') format('svg'),
+		 url('titilliumweb-regular-webfont.woff') format('woff'),
+		 url('titilliumweb-regular-webfont.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 600;
+  src: url('titilliumweb-semibold-webfont.eot');
+	src: url('titilliumweb-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('titilliumweb-semibold-webfont.svg#titillium_webregular') format('svg'),
+		 url('titilliumweb-semibold-webfont.woff') format('woff'),
+		 url('titilliumweb-semibold-webfont.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 700;
+  src: url('titilliumweb-bold-webfont.eot');
+	src: url('titilliumweb-bold-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('titilliumweb-bold-webfont.svg#titillium_webregular') format('svg'),
+		 url('titilliumweb-bold-webfont.woff') format('woff'),
+		 url('titilliumweb-bold-webfont.ttf') format('truetype');
+}
+
+html { padding:0px; margin:0px; }
+body { color:#2d2d2d; padding:0px; margin:0px; font-family:'Titillium Web', Calibri, Arial, Helvetica, sans-serif;  background:#eaebed url(back.png) top left repeat; font-size:85%; min-width:993px; font-weight:400; }
+h1, h2, h3, h4, h5, .h1, .h2, .h3, p { margin:0; padding:0 0 17px 0; font-weight:normal; }
+h1, h2, h3, h4, h5, .h1, .h2, .h3 { color:#2d80c5; }
+button { font-family:'Titillium Web', Calibri, Arial, Helvetica, sans-serif; font-weight:600; }
+
+h1, .h1 { font-size:1.75em; font-weight:400; }
+h2, .h2, h1.entry-title { font-size:1.25em; font-weight:700; }
+h3, .h3 { font-size:1.25em; font-weight:400; }
+h4, .h4 { font-size:1.1em; }
+
+form { margin:0; padding:0; } 
+select { font-family:Arial,_sans; font-size:1em; }
+img { border-style:none; vertical-align:middle; }
+a { color:#2d80c5; text-decoration:none; }
+a:hover { text-decoration:underline; color:#000; }
+input, textarea { color:#2d2d2d; font-family:Arial,Helvetica,Sans-serif; font-size:0.95em; vertical-align:middle; }
+
 .row { display:table; width:100%; }
 .row > div { display:table-row; }
 .row > div > div { display:table-cell; vertical-align:middle; }
@@ -6,8 +55,32 @@
 img { max-width:100%; }
 .center { text-align:center; }
 
+.bars { float:left; width:20px; height:20px; background:url(bars.gif) center center no-repeat; }
+
+.page, .navmenu-panel { position:absolute; left:0; top:0; overflow:hidden; background:#eaebed url(back.png) top left repeat; }
+.panel-cover { position:absolute; left:0; top:0; width:100%; height:100%; background:url(t.gif) top left no-repeat; z-index:2; display:none; }
+.navmenu-panel { z-index:3; display:none; }
+
+.header { background:#2f8ddb url(btn_back.png) top left repeat-x; color:#fff; padding:10px; text-align:center; }
+.header h1 { padding:0; color:#fff; }
+
+.content { padding:10px 20px; }
+
+.loading { background:url(loading.gif) center center no-repeat; width:100%; height:150px; position:absolute; }
+
+.btn { background:#2f8ddb url(btn_back.png) top left repeat-x; color:#fff; padding:10px; text-align:center; cursor:pointer; border-radius:7px; display:block; font-size:1.2em; }
+.btn.ui-disabled { background:#ebebeb url(btn_back_off.png) top left repeat-x; color:#2f8ddb; cursor:default; }
+.btn.ui-disabled a { color:#2f8ddb; }
+.actions { border-radius:7px; overflow:hidden; }
+.actions .btn { border-radius:0px; }
+
+.listview { margin:0; padding:0 0 10px 0; list-style:none; }
+.listview li { background:#2f8ddb url(btn_back.png) top left repeat-x; color:#fff; line-height:1.1em; }
+.listview li a { padding:10px; color:#fff; background:url(drop_arrow.png) 95% center no-repeat; display:block; font-weight:600; }
+.listview li a em { font-style:none; font-weight:400; font-size:0.8em; }
+
 @media (max-width: 500px) {
 	.row, .row > div, .row > div > div { display:block; }
-	.image_cell { width:auto; text-align:center; padding:20px 0 0; }
+	.image_cell { width:auto; text-align:center; padding:20px 0; }
 	.image_cell img { padding:3%; max-width:94%; }
 }
