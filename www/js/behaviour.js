@@ -29,7 +29,6 @@ function onDeviceReady() {
 	var teams = window.localStorage.getItem("team");
 	if(teams) {
 		defaults = $.parseJSON(teams);
-		console.log(defaults);
 	}
 	
 	if(networkState == Connection.WIFI || networkState == Connection.ETHERNET || networkState == Connection.CELL_4G) {
