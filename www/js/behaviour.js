@@ -36,10 +36,23 @@ function onDeviceReady() {
 				
 				if(typeof FileTransfer != 'undefined') {
 					$.each(data,function() {
-						var fileTransfer = new FileTransfer();
 						var getimg = "http://www.sck-webworks.co.uk/images/sck-team/"+this.img;
 						var setimg = "images/"+this.img;
-						fileTransfer.download(getimg,setimg);
+					
+						window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+							fileSystem.root.getFile(setimg, {create: true, exclusive: false}, function(fileEntry) {
+								var localPath = fileEntry.fullPath;
+								if (device.platform === "Android" && localPath.indexOf("file://") === 0) {
+									localPath = localPath.substring(7);
+								}
+								var ft = new FileTransfer();
+								ft.download(getimg,
+									localPath, function(entry) {
+										var d = new Date();
+										$('#'+data.firstName+data.lastName).attr("src",$('#'+data.firstName+data.lastName).attr("src") + d.getTime());
+									}, fail);
+							}, fail);
+						}, fail);
 					});
 				}
 				
@@ -133,9 +146,7 @@ function buildContent(team) {
 						}
 					}
 				});
-			},function(error) {
-				console.log(error);
-			},options);
+			},fail,options);
 		}
 	}, 10);
 	
@@ -218,6 +229,10 @@ function buildContent(team) {
 	$('.loading').remove();
 }
 
+function fail(error) {
+	console.log(error.code);
+}
+
 function resized() {
 	$('.container').width($(window).width());
 	$('.nav-container').width($(window).width()*.6).height($(document).height());
@@ -251,9 +266,7 @@ function addContactButton(target,firstname,lastname,phone,email,img) {
 		
 		contact.save(function() {
 			addLink.unbind('click').text('Added').addClass('ui-disabled');
-		},function(e) {
-			console.log(e);
-		});
+		},fail);
 		return false;
 	});
 }
