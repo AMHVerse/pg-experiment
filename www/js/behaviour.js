@@ -33,6 +33,16 @@ function onDeviceReady() {
 			success:function(data) {
 				window.localStorage.removeItem("team");
 				window.localStorage.setItem("team", JSON.stringify(data));
+				
+				if(typeof FileTransfer != 'undefined') {
+					$.each(data,function() {
+						var fileTransfer = new FileTransfer();
+						var getimg = "http://www.sck-webworks.co.uk/images/sck-team/"+this.img;
+						var setimg = "images/"+this.img;
+						fileTransfer.download(getimg,setimg);
+					});
+				}
+				
 				buildContent(data);
 			},
 			error:function(e) {
