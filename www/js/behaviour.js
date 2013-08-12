@@ -35,6 +35,7 @@ function onDeviceReady() {
 				window.localStorage.setItem("team", JSON.stringify(data));
 				
 				if(typeof FileTransfer != 'undefined') {
+					alert("FileTransfer");
 					$.each(data,function() {
 						var getimg = "http://www.sck-webworks.co.uk/images/sck-team/"+this.img;
 						var setimg = this.img;
@@ -46,6 +47,7 @@ function onDeviceReady() {
 									localPath = localPath.substring(7);
 								}
 								var ft = new FileTransfer();
+								alert(localPath);
 								ft.download(getimg,
 									localPath+"images/", function(entry) {
 										var d = new Date();
