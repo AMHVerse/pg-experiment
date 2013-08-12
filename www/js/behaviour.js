@@ -133,6 +133,38 @@ function buildContent(team) {
 	$('.navmenu-panel').hide();
 	$('#home').addClass('page');
 	
+	resized();
+	$(window).bind('resize',resized)
+	
+	$('.bars').click(function() {
+		var targetid = $(this).attr('href');
+		$('.panel-cover').show().click(function() {
+			$(this).hide();
+			$(targetid).animate({width:'hide'},400);
+		});
+		$(targetid).animate({width:'show'},400);
+		return false;
+	});
+	
+	$('.pagelink').click(function() {
+		$('.panel-cover').hide();
+		var targetid = $(this).attr('href');
+		visid = $('.page:visible').attr('id');
+		
+		if($(targetid).length > 0 && targetid != '#'+visid) {
+			if(targetid == '#home') {
+				$('.page:visible').animate({width:'hide',left:'100%'},400);
+				$(targetid).animate({width:'show'},400);
+			} else {
+				$('.page:visible').animate({width:'hide'},400);
+				$(targetid).css('left','100%').animate({width:'show',left:'0%'},400);
+			}
+			if($('#navmenu-panel:visible').length > 0) {
+				$('#navmenu-panel:visible').animate({width:'hide'},400);
+			}
+		}
+	});
+	
 	$('.page').bind('touchstart', function(e) {
 		var touch = e.originalEvent.touch || e.originalEvent.touches[0];
 		tstartX = touch.pageX;
@@ -165,38 +197,6 @@ function buildContent(team) {
 				}
 			}
 			tstartX = tstartY = tX = tY = false;
-		}
-	});
-	
-	resized();
-	$(window).bind('resize',resized)
-	
-	$('.bars').click(function() {
-		var targetid = $(this).attr('href');
-		$('.panel-cover').show().click(function() {
-			$(this).hide();
-			$(targetid).animate({width:'hide'},400);
-		});
-		$(targetid).animate({width:'show'},400);
-		return false;
-	});
-	
-	$('.pagelink').click(function() {
-		$('.panel-cover').hide();
-		var targetid = $(this).attr('href');
-		visid = $('.page:visible').attr('id');
-		
-		if($(targetid).length > 0 && targetid != '#'+visid) {
-			if(targetid == '#home') {
-				$('.page:visible').animate({width:'hide',left:'100%'},400);
-				$(targetid).animate({width:'show'},400);
-			} else {
-				$('.page:visible').animate({width:'hide'},400);
-				$(targetid).css('left','100%').animate({width:'show',left:'0%'},400);
-			}
-			if($('#navmenu-panel:visible').length > 0) {
-				$('#navmenu-panel:visible').animate({width:'hide'},400);
-			}
 		}
 	});
 	
