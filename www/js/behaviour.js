@@ -1,6 +1,6 @@
 var db = 0;
 var navused = true;
-
+var tstartX, tstartY, tX, tY;
 document.addEventListener("deviceready", onDeviceReady, true);
 document.addEventListener("menubutton", function() {
 	$('.page:visible').find('.bars').click();
@@ -132,6 +132,41 @@ function buildContent(team) {
 	
 	$('.navmenu-panel').hide();
 	$('#home').addClass('page');
+	
+	$('.page').bind('touchstart', function(e) {
+		var touch = e.originalEvent.touch || e.originalEvent.touches[0];
+		tstartX = touch.pageX;
+		tstartY = touch.pageY;
+	}).bind('touchmove', function(e) {
+		var touch = e.originalEvent.touch || e.originalEvent.touches[0];
+		tX = touch.pageX;
+		tY = touch.pageY;
+		
+		if(tX < tstartX - 10 || tX > tstartX + 10) {
+			e.preventDefault();
+		}
+	}).bind('touchend', function(e) {
+		$p = $(this);
+		if(tstartX && tX) {
+			if(tX < tstartX - 20 || tX > tstartX + 20) {
+				if(tX < tstartX - 20) {
+					var $n = $p.next('.page');
+					if($n.length > 0) {
+						$p.animate({width:'hide',left:'100%'},400);
+						$n.animate({width:'show'},400);
+					}
+				}
+				if(tX > tstartX + 20) {
+					var $n = $p.previous('.page');
+					if($n.length > 0) {
+						$p.animate({width:'hide'},400);
+						$n.css('left','100%').animate({width:'show',left:'0%'},400);
+					}
+				}
+			}
+			tstartX = tstartY = tX = tY = false;
+		}
+	});
 	
 	resized();
 	$(window).bind('resize',resized)
