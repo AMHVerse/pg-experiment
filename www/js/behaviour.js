@@ -199,7 +199,7 @@ function buildContent(team) {
 					}
 				}
 				if(tX > tstartX + 20) {
-					var $n = $p.prevAll('.page:last');
+					var $n = $p.prevAll('.page:first');
 					if($n.length > 0) {
 						$p.animate({width:'hide',left:'100%'},400);
 						$n.animate({width:'show'},400);
