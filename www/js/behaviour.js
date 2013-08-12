@@ -200,7 +200,7 @@ function buildContent(team) {
 		if($(targetid).length > 0 && targetid != '#'+visid) {
 			if(targetid == '#home') {
 				$('.page:visible').animate({width:'hide',left:'100%'},400);
-				$(targetid).animate({width:'show'},400);
+				$(targetid).css('left','0%').animate({width:'show'},400);
 			} else {
 				$('.page:visible').animate({width:'hide'},400);
 				$(targetid).css('left','100%').animate({width:'show',left:'0%'},400);
@@ -244,7 +244,7 @@ function buildContent(team) {
 					var $n = $p.prevAll('.page:first');
 					if($n.length > 0) {
 						$p.animate({width:'hide',left:'100%'},400);
-						$n.animate({width:'show'},400);
+						$n.animate.css('left','0%')({width:'show'},400);
 					}
 				}
 			}
