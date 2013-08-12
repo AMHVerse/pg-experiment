@@ -60,7 +60,6 @@ function onDeviceReady() {
 	$(window).bind('hashchange', function() {
 		if(navused) {
 			getPageFromHash();
-			navused = true;
 		}
 	});
 };
@@ -191,11 +190,18 @@ function buildContent(team) {
 		$p = $(this);
 		if(tstartX && tX) {
 			if(tX < tstartX - 20 || tX > tstartX + 20) {
+				if(tX < tstartX - 20 || tX > tstartX + 20) {
+					navused = false;
+					location.hash = '#'+$p.attr('id');
+					navused = true;
+				}
+				
 				if(tX < tstartX - 20) {
 					var $n = $p.nextAll('.page:first');
 					if($n.length > 0) {
 						$p.animate({width:'hide'},400);
 						$n.css('left','100%').animate({width:'show',left:'0%'},400);
+						location.hash = 
 					}
 				}
 				if(tX > tstartX + 20) {
