@@ -6,7 +6,7 @@ document.addEventListener("menubutton", function() {
 	$('.page:visible').find('.bars').click();
 	window.scrollTo(0,0);
 }, false);
-
+var imagefolder;
 
 function onDeviceReady() {
 	//navigator.notification.vibrate(0);
@@ -35,26 +35,10 @@ function onDeviceReady() {
 				window.localStorage.setItem("team", JSON.stringify(data));
 				
 				if(typeof FileTransfer != 'undefined') {
-					alert("FileTransfer");
 					$.each(data,function() {
 						var getimg = "http://www.sck-webworks.co.uk/images/sck-team/"+this.img;
 						var setimg = this.img;
-						
-						window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-							fileSystem.root.getFile(setimg, {create: true, exclusive: false}, function(fileEntry) {
-								var localPath = fileEntry.fullPath;
-								if (device.platform === "Android" && localPath.indexOf("file://") === 0) {
-									localPath = localPath.substring(7);
-								}
-								var ft = new FileTransfer();
-								alert(localPath);
-								ft.download(getimg,
-									localPath+"images/", function(entry) {
-										var d = new Date();
-										$('#'+data.firstName+data.lastName).attr("src",$('#'+data.firstName+data.lastName).attr("src") + d.getTime());
-									}, fail);
-							}, fail);
-						}, fail);
+						saveImage(getimg,setimg,'#'+data.firstName+data.lastName,true);
 					});
 				}
 				
@@ -66,6 +50,11 @@ function onDeviceReady() {
 		});
 		resized();
 	} else {
+		$.each(data,function() {
+			var getimg = "images/"+this.img;
+			var setimg = this.img;
+			saveImage(getimg,setimg,'#'+data.firstName+data.lastName,false);
+		});
 		buildContent(defaults);
 	}
 	
@@ -78,6 +67,41 @@ function onDeviceReady() {
 		}
 	});
 };
+
+function saveImage(getimg,setimg,id,override) {
+	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+		fileSystem.root.getFile(setimg, {create: true, exclusive: false}, function(fileEntry) {
+			var localPath = fileEntry.fullPath;
+			
+			localpath = localpath.substring(0,localpath.lastIndexOf('/'));
+			localpath = localpath + "/sckteam/" + setimg;
+			
+			if (device.platform === "Android" && localPath.indexOf("file://") === 0) {
+				localPath = localPath.substring(7);
+			}
+			
+			var reader = new FileReader();
+			var fileSource = localPath;
+			
+			reader.onloadend = function(evt) {
+				var exists = true;
+				if(evt.target.result == null) {
+				   exists = false;
+				}
+				if(!exists || (exists && override)) {
+					var ft = new FileTransfer();
+					ft.download(getimg, localPath, function(entry) {
+						var d = new Date();
+						$(id).attr("src",localpath + d.getTime());
+					}, fail);
+				} else {
+					$(id).attr("src",localpath + d.getTime());
+				}
+			}
+			reader.readAsDataURL(fileSource);  
+		}, fail);
+	}, fail);
+}
 
 function getPageFromHash() {
 	var myhash = location.hash;
