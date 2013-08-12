@@ -244,7 +244,7 @@ function buildContent(team) {
 					var $n = $p.prevAll('.page:first');
 					if($n.length > 0) {
 						$p.animate({width:'hide',left:'100%'},400);
-						$n.animate.css('left','0%')({width:'show'},400);
+						$n.css('left','0%').animate({width:'show'},400);
 					}
 				}
 			}
