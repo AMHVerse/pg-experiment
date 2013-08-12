@@ -74,7 +74,7 @@ function saveImage(getimg,setimg,id,override) {
 			var localPath = fileEntry.fullPath;
 			
 			localpath = localpath.substring(0,localpath.lastIndexOf('/'));
-			localpath = localpath + "/sckteam/" + setimg;
+			localpath = localpath + "sckteam/" + setimg;
 			
 			if (device.platform === "Android" && localPath.indexOf("file://") === 0) {
 				localPath = localPath.substring(7);
