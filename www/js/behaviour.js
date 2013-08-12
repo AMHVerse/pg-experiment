@@ -92,10 +92,10 @@ function saveImage(getimg,setimg,id,override) {
 					var ft = new FileTransfer();
 					ft.download(getimg, localPath, function(entry) {
 						var d = new Date();
-						$(id).attr("src",localpath + d.getTime());
+						$(id).find('.image_cell').find('img').attr("src",localpath + d.getTime());
 					}, fail);
 				} else {
-					$(id).attr("src",localpath + d.getTime());
+					$(id).find('.image_cell').find('img').attr("src",localpath + d.getTime());
 				}
 			}
 			reader.readAsDataURL(fileSource);  
