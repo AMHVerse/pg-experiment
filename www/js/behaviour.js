@@ -152,15 +152,15 @@ function buildContent(team) {
 				if(tX < tstartX - 20) {
 					var $n = $p.next('.page');
 					if($n.length > 0) {
-						$p.animate({width:'hide',left:'100%'},400);
-						$n.animate({width:'show'},400);
+						$p.animate({width:'hide'},400);
+						$n.css('left','100%').animate({width:'show',left:'0%'},400);
 					}
 				}
 				if(tX > tstartX + 20) {
-					var $n = $p.previous('.page');
+					var $n = $p.prev('.page');
 					if($n.length > 0) {
-						$p.animate({width:'hide'},400);
-						$n.css('left','100%').animate({width:'show',left:'0%'},400);
+						$p.animate({width:'hide',left:'100%'},400);
+						$n.animate({width:'show'},400);
 					}
 				}
 			}
