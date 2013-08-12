@@ -192,14 +192,14 @@ function buildContent(team) {
 		if(tstartX && tX) {
 			if(tX < tstartX - 20 || tX > tstartX + 20) {
 				if(tX < tstartX - 20) {
-					var $n = $p.next('.page');
+					var $n = $p.nextAll('.page:first');
 					if($n.length > 0) {
 						$p.animate({width:'hide'},400);
 						$n.css('left','100%').animate({width:'show',left:'0%'},400);
 					}
 				}
 				if(tX > tstartX + 20) {
-					var $n = $p.prev('.page');
+					var $n = $p.prev:All('.page:last');
 					if($n.length > 0) {
 						$p.animate({width:'hide',left:'100%'},400);
 						$n.animate({width:'show'},400);
