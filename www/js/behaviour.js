@@ -37,8 +37,8 @@ function onDeviceReady() {
 				if(typeof FileTransfer != 'undefined') {
 					$.each(data,function() {
 						var getimg = "http://www.sck-webworks.co.uk/images/sck-team/"+this.img;
-						var setimg = "images/"+this.img;
-					
+						var setimg = this.img;
+						
 						window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
 							fileSystem.root.getFile(setimg, {create: true, exclusive: false}, function(fileEntry) {
 								var localPath = fileEntry.fullPath;
@@ -47,7 +47,7 @@ function onDeviceReady() {
 								}
 								var ft = new FileTransfer();
 								ft.download(getimg,
-									localPath, function(entry) {
+									localPath+"images/", function(entry) {
 										var d = new Date();
 										$('#'+data.firstName+data.lastName).attr("src",$('#'+data.firstName+data.lastName).attr("src") + d.getTime());
 									}, fail);
