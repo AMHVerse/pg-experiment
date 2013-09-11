@@ -4,14 +4,14 @@
         versionCode="10" 
         version   = "1.0.0">
 
-    <name>Invest in cumbria App</name>
+    <name>Invest in Cumbria App</name>
 
     <description>
-        information from Invest in cumbria
+        information from Invest in Cumbria
     </description>
 
     <author href="http://www.investincumbria.co.uk/" email="hello@investincumbria.co.uk">
-        Invest in cumbria
+        Invest in Cumbria
     </author>
 
 	<preference name="permissions" value="none"/>
