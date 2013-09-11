@@ -86,11 +86,11 @@ function gotoPage(targetid) {
 	$p = $('.page:visible');
 	var st = $(window).scrollTop();
 	if(targetid == '#home' || inverse) {
-		$p.css('top',-st).animate({width:'hide',left:'100%'},400, function() { $(this).css('top',0); });
+		$p.css('top',-st).animate({width:'hide',left:'100%'},400, function() { $(this).css('top',0); $(window).resize(); });
 		$(targetid).css('left','0%').animate({width:'show'},400);
 		inverse = false;
 	} else {
-		$p.css('top',-st).animate({width:'hide'},400, function() { $(this).css('top',0); });
+		$p.css('top',-st).animate({width:'hide'},400, function() { $(this).css('top',0); $(window).resize(); });
 		$(targetid).css('left','100%').animate({width:'show',left:'0%'},400);
 	}
 	$('#navmenu-panel').find('li').removeClass('active').find('a[href='+targetid+']').parents('li').addClass('active');
@@ -183,10 +183,10 @@ function setupNavigation($p) {
 		$a = $(this);
 		$body = $a.next('.expand_body');
 		if($a.hasClass('active')){
-			$body.stop(true,true).animate({'height':'hide'},'slow');
+			$body.stop(true,true).animate({'height':'hide'},'slow', function() { $(window).resize(); });
 			$a.removeClass('active');
 		} else {
-			$body.stop(true,true).animate({'height':'show'},'slow');
+			$body.stop(true,true).animate({'height':'show'},'slow', function() { $(window).resize(); });
 			$a.addClass('active');
 		}
 	}).filter(':not(.active)').siblings('.expand_body').hide();
@@ -240,7 +240,7 @@ function resized() {
 }
 
 var newstemplate = '<div id="news{{id}}" class="page"><div class="container"><div class="content"><div class="page_content"><h1>{{title}}</h1><p><em>{{date}}</em></p>{{content}}<p><a href="javascript:history.back();" class="backbtn"><span></span>Back to News</a></div></div></div></div>';
-var listtemplate = '<li class="pagelink"><a href="#news{{id}}" class="pagelink"><strong>{{title}}</strong><br />{{summary}}<br /><em>{{date}}</em></a></li>';
+var listtemplate = '<li class="pagelink"><a href="#news{{id}}" class="pagelink"><strong>{{title}}</strong><br />{{summary}}<br /><em>{{date}}</em></a><div class="clearspace"></div><a href="#news{{id}}" class="pagelink btn">Read more</a></li>';
 function applyTemplate(temp, data) {
 	var newText = temp;
 	for(var nme in data) {
