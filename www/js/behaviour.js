@@ -140,7 +140,12 @@ function setupNavigation($p) {
 		}
 	});
 	
-	$p.find('.page').unbind('touchstart').unbind('touchend').unbind('touchmove').bind('touchstart', function(e) {
+	$page = $p;
+	if(!$p.hasClass('page')) {
+		$page = $p.find('.page');
+	}
+	
+	$page.unbind('touchstart').unbind('touchend').unbind('touchmove').bind('touchstart', function(e) {
 		var touch = e.originalEvent.touch || e.originalEvent.touches[0];
 		tstartX = touch.pageX;
 		tstartY = touch.pageY;
@@ -206,7 +211,7 @@ function buildNewsContent(newsdata) {
 	var news = newsdata;
 	
 	$('.loading').remove();
-	$newscont = $('#news').find('.page_content');
+	$newscont = $('#newscontainer');
 	
 	if(newsdata.length > 0) {
 		$newscont.append('<ul></ul>');
