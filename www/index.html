@@ -3,35 +3,117 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>SCK Webworks</title>
+		<title>Invest in cumbria</title>
 		<link rel="stylesheet" href="css/styles.css" />
 		<script src="js/jquery-1.9.1.min.js"></script>
 		<script src="phonegap.js"></script>
 		<script src="js/behaviour.js"></script>
 	</head>
 	<body>
-		<div id="home">
-			<div class="container">
-				<div class="header" class="fixed">
-					<a href="#navmenu-panel" class="bars"></a>
-					<h1>SCK Webworks</h1>
-				</div>
-				<div class="content">
-					<p class="center"><img src="images/logo.png" alt="SCK" /></p>
-					
-					<div class="loading"></div>
-					<h2>The team</h2>
-					
-					<ul class="listview" class="nav">
-					</ul>
+		<div class="header" class="fixed">
+			<div class="back">
+				<div class="padding cs">
+					<a href="#navmenu-panel" class="bars"><img src="css/icon_menu.png" alt="View menu" /></a>
+					<a href="" class="zoom"><!--<img src="css/zoom.png" alt="Zoom" />--></a>
+					<h1><img src="images/logo.png" alt="Invest in Cumbria" /></h1>
 				</div>
 			</div>
 		</div>
+		<div class="pages">
+			<div id="home" class="page">
+				<div class="container">
+					<div class="content">
+						<div class="content_circle">
+							<div class="circle_contain">
+								<img src="images/home_circle.png" alt="" class="circle" />
+								<a href="#whyinvest" class="whycumbria pagelink"><span class="icon"><img src="css/icon_whycumbria.png" alt="Why Cumbria" /></span>Why Cumbria?</a>
+								<a href="#our-strengths" class="ourstrengths pagelink"><span class="icon"><img src="css/icon_ourstrengths.png" alt="Our Strengths" /></span>Our Strengths</a>
+								<a href="#success-stories" class="successstories pagelink"><span class="icon"><img src="css/icon_successstories.png" alt="Success stories" /></span>Success Stories</a>
+								<a href="#news" class="newsevents pagelink"><span class="icon"><img src="css/icon_newsandevents.png" alt="News and Events" /></span>News and Events</a>
+								<a href="#howwehelp" class="howwehelp pagelink"><span class="icon"><img src="css/icon_i.png" alt="How we can help" /></span>How we can help</a>
+								<a href="#businessprop" class="businessprop pagelink"><span class="icon"><img src="css/icon_businessproperties.png" alt="Business Properties and Sites" /></span>Business Properties &amp; Sites</a>
+								<a href="#enquiries" class="contact pagelink"><span class="icon"><img src="css/icon_contactus.png" alt="Contact Us" /></span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="news" class="page">
+				<div class="container">
+					<div class="content">
+						<div class="page_content">
+							<h1>Latest News</h1>
+							<div class="loading"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="businessprop" class="page">
+				<div class="container">
+					<div class="content">
+						<div class="page_content">
+							<h1>Business Properties Search</h1>
+							<div class="connectedonly">
+								Search for properties online
+							</div>
+							<div class="notconnected">
+								You need to be online to view this page
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--<div class="footer">
+			<a href="#lifestyle" class="lifestyle pagelink">
+				<span class="icon">
+				<img src="css/icon_lifestyle.png" alt=""/>
+				</span>
+				Lifestyle
+			</a>
+			<a href="#transport" class="transport active pagelink">
+				<span class="icon">
+				<img src="css/icon_transport.png" alt=""/>
+				</span>
+				Transport
+			</a>
+			<a href="#location" class="location pagelink">
+				<span class="icon">
+				<img src="css/icon_location.png" alt=""/>
+				</span>
+				Location
+			</a>
+			<a href="#social" class="social pagelink">
+				<span class="icon">
+				<img src="css/icon_social.png" alt=""/>
+				</span>
+				Social
+			</a>
+			<a href="#signup" class="signup pagelink">
+				<span class="icon">
+				<img src="css/icon_mail.png" alt=""/>
+				</span>
+				Sign up
+			</a>
+		</div>-->
+		<div class="imgback"><img src="css/content_back.png" alt="" /></div>
 		<div class="panel-cover"></div>
 		<div id="navmenu-panel" class="navmenu-panel">
 			<div class="nav-container">
 				<ul class="listview">
-					<li><a href="#home" class="pagelink" id="homelink">Home</a></li>
+					<li class="active"><a href="#home" class="pagelink">Home</a></li>
+					<li><a href="#our-strengths" class="pagelink">Our Strengths</a></li>
+					<li><a href="#whyinvest" class="pagelink">Why invest in Cumbria</a>
+						<ul>
+							<li><a href="#districtprofiler" class="pagelink">District profiler</a></li>
+							<li><a href="#location" class="pagelink">Location</a></li>
+							<li><a href="#business" class="pagelink">Business</a></li>
+						</ul>
+					</li>
+					<li><a href="#news" class="pagelink">News</a></li>
+					<li><a href="#howwehelp" class="pagelink">How we can help</a></li>
+					<li><a href="#businessprop" class="pagelink">Business Properties Search</a></li>
+					<li><a href="#enquiries" class="pagelink">Contact Us</a></li>
 				</ul>
 			</div>
 		</div>

@@ -1,39 +1,7 @@
-@font-face {
-	font-family: 'Titillium Web';
-	font-style: normal;
-	font-weight: 400;
-	src: url('titilliumweb-regular-webfont.eot');
-	src: url('titilliumweb-regular-webfont.eot?#iefix') format('embedded-opentype'),
-		 url('titilliumweb-regular-webfont.svg#titillium_webregular') format('svg'),
-		 url('titilliumweb-regular-webfont.woff') format('woff'),
-		 url('titilliumweb-regular-webfont.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'Titillium Web';
-  font-style: normal;
-  font-weight: 600;
-  src: url('titilliumweb-semibold-webfont.eot');
-	src: url('titilliumweb-semibold-webfont.eot?#iefix') format('embedded-opentype'),
-		 url('titilliumweb-semibold-webfont.svg#titillium_webregular') format('svg'),
-		 url('titilliumweb-semibold-webfont.woff') format('woff'),
-		 url('titilliumweb-semibold-webfont.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'Titillium Web';
-  font-style: normal;
-  font-weight: 700;
-  src: url('titilliumweb-bold-webfont.eot');
-	src: url('titilliumweb-bold-webfont.eot?#iefix') format('embedded-opentype'),
-		 url('titilliumweb-bold-webfont.svg#titillium_webregular') format('svg'),
-		 url('titilliumweb-bold-webfont.woff') format('woff'),
-		 url('titilliumweb-bold-webfont.ttf') format('truetype');
-}
-
 html { padding:0px; margin:0px; }
-body { color:#2d2d2d; padding:0px; margin:0px; font-family:'Titillium Web', Calibri, Arial, Helvetica, sans-serif;  background:#eaebed url(back.png) top left repeat; font-size:85%;  font-weight:400; }
+body { padding:0px; margin:0px; font-family:Arial, Helvetica, sans-serif;  background:#35396d; font-size:90%;  font-weight:400; }
 h1, h2, h3, h4, h5, .h1, .h2, .h3, p { margin:0; padding:0 0 17px 0; font-weight:normal; }
-h1, h2, h3, h4, h5, .h1, .h2, .h3 { color:#2d80c5; }
-button { font-family:'Titillium Web', Calibri, Arial, Helvetica, sans-serif; font-weight:600; }
+button { font-family:Arial, Helvetica, sans-serif; font-weight:600; }
 
 h1, .h1 { font-size:1.75em; font-weight:400; }
 h2, .h2, h1.entry-title { font-size:1.25em; font-weight:700; }
@@ -43,44 +11,122 @@ h4, .h4 { font-size:1.1em; }
 form { margin:0; padding:0; } 
 select { font-family:Arial,_sans; font-size:1em; }
 img { border-style:none; vertical-align:middle; }
-a { color:#2d80c5; text-decoration:none; }
+a { color:#000; text-decoration:none; }
 a:hover { text-decoration:underline; color:#000; }
 input, textarea { color:#2d2d2d; font-family:Arial,Helvetica,Sans-serif; font-size:0.95em; vertical-align:middle; }
 
-.row { display:table; width:100%; }
-.row > div { display:table-row; }
-.row > div > div { display:table-cell; vertical-align:middle; }
-.image_cell { width:249px; padding-right:20px; }
-.image_cell img { padding:20px; background:#fff; border:#999 1px solid; }
 img { max-width:100%; }
 .center { text-align:center; }
+.colour, h1 em, h2 em { color:#ffa800; }
+.clear { clear:both; height:0px; overflow:hidden; display:block; }
+.clearspace { clear:both; height:17px; overflow:hidden; display:block; }
 
-.bars { float:left; width:20px; height:20px; background:url(bars.gif) center center no-repeat; }
+.bars { float:left; max-width:12%; padding:3% 0%; }
+.zoom { float:right; max-width:12%; padding:2% 0%; }
 
-.page, .navmenu-panel { position:absolute; left:0; top:0; overflow:hidden; background:#eaebed url(back.png) top left repeat; }
-.panel-cover { position:absolute; left:0; top:0; width:100%; height:100%; background:url(t.gif) top left no-repeat; z-index:2; display:none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
-.navmenu-panel { z-index:3; display:none; }
+.pages { position:relative; z-index:1; }
+.page { padding:16% 0 5px; position:absolute; }
+.navmenu-panel { z-index:3; display:none; position:fixed; height:100%; overflow:auto; }
+.page, .navmenu-panel { left:0; top:0; overflow:hidden; min-height:100%; display:none; }
+#home.page { display:block; }
+.panel-cover { position:fixed; left:0; top:0; width:100%; height:100%; background:url(t.gif) top left no-repeat; z-index:2; display:none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
 
-.header { background:#2f8ddb url(btn_back.png) top left repeat-x; color:#fff; padding:10px; text-align:center; }
+.header { background:#353966 url(header_back.png) bottom left repeat-x; border-bottom:#565a7f 1px solid; color:#fff; text-align:center; position:fixed; z-index:2; width:100%; }
+.header .back { background:url(header_left.png) bottom left no-repeat; }
+.header .padding { background:url(header_right.png) bottom right no-repeat; padding:1% 3%; }
 .header h1 { padding:0; color:#fff; }
+.header h1 img { max-width:33%; }
 
-.content { padding:10px 20px; }
+.content { padding:1% 0px; }
+.content_circle { padding:3% 0; }
+.circle_contain { position:relative; }
+.circle_contain > img { width:100%; }
+.content_circle a { position:absolute; width:20%; color:#fff; text-align:center; font-weight:bold; }
+.content_circle span.icon { max-width:40%; display:block; margin:0 auto; }
+.content_circle .whycumbria { top:19%; left:39%; }
+.content_circle .ourstrengths { top:60%; left:15%; }
+.content_circle .successstories { top:34%; left:15%; }
+.content_circle .newsevents { top:34%; left:64%; }
+.content_circle .howwehelp { top:73%; left:39%; }
+.content_circle .businessprop { top:57%; left:63%; }
+.content_circle .contact { top:47.5%; left:40%; }
 
 .loading { background:url(loading.gif) center center no-repeat; width:100px; height:100px; position:absolute; left:50%; margin-left:-50px; }
 
-.btn { background:#2f8ddb url(btn_back.png) top left repeat-x; color:#fff; padding:10px; text-align:center; cursor:pointer; border-radius:7px; display:block; font-size:1.2em; }
-.btn.ui-disabled { background:#ebebeb url(btn_back_off.png) top left repeat-x; color:#2f8ddb; cursor:default; }
+.footer { position:fixed; bottom:0px; background:#181d46 url(footer_top.png) top left repeat-x; width:100%; z-index:30; }
+.footer a { float:left; width:18%; color:#959595; text-align:center; font-weight:bold; padding:5px 1%; }
+.footer a.active { border-radius:7px; background:url(active_back.png); color:#fff; }
+.footer .icon { display:block; vertical-align:middle; height:54px; line-height:54px; }
+.footer .icon img { max-width:70%; vertical-align:middle; }
+
+.btn { background:#353966; color:#fff; padding:10px; text-align:center; cursor:pointer; border-radius:7px; display:block; font-size:1.2em; border:0; }
+.btn.ui-disabled { background:#ebebeb; color:#2f8ddb; cursor:default; }
 .btn.ui-disabled a { color:#2f8ddb; }
 .actions { border-radius:7px; overflow:hidden; }
 .actions .btn { border-radius:0px; }
 
 .listview { margin:0; padding:0 0 10px 0; list-style:none; }
-.listview li { background:#2f8ddb url(btn_back.png) top left repeat-x; color:#fff; line-height:1.1em; }
-.listview li a { padding:10px; color:#fff; background:url(drop_arrow.png) 95% center no-repeat; display:block; font-weight:600; }
+.listview li { background:#1a1b3c; color:#fff; line-height:1.1em; border-top:#090a14 1px solid; border-bottom:#30345c 1px solid; }
+.listview li ul { display:none; }
+.listview li ul li { background:#0f1024; }
+.listview li.active > ul { display:block; margin:0; padding:0; list-style:none; }
+.listview li.active > a { background:#ffa800; color:#fff; }
+.listview li.active li.active > a { background:#e4e5e6; color:#000; }
+.listview li.active li.active li.active > a { background:#fff; color:#000; }
+.listview li a { padding:10px; color:#fff; display:block; font-weight:600; }
 .listview li a em { font-style:none; font-weight:400; font-size:0.8em; }
 
-@media (max-width: 500px) {
-	.row, .row > div, .row > div > div { display:block; }
-	.image_cell { width:auto; text-align:center; padding:20px 0; }
-	.image_cell img { padding:3%; max-width:94%; }
+.imgback { z-index:0; top:0px; left:0px; position:fixed; height:100%; width:100%; }
+.imgback img { width:100%; max-height:100%; }
+
+.noselect, .imgback { -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+
+.page_content { background:#fff; padding:3%; margin:1% 2%; }
+
+.photo { background:#fff; padding:1%; max-width:98%; -webkit-box-shadow: 0px 0px 14px #8d8d8d; box-shadow: 0px 0px 14px #8d8d8d; display:block; margin:0 auto; }
+
+blockquote { padding:0 15px 15px; margin:0; }
+
+#news ul { list-style:none; margin:0; padding:0; }
+#news ul li { padding-bottom:10px; }
+
+.backbtn { background:#353966; display:inline-block; color:#fff; font-weight:bold; padding:7px 7px 9px; margin-left:17px; }
+.backbtn span { display:inline-block; border:transparent 15px solid; margin:-25px 5px -25px -37px; vertical-align:middle; border-right-color:#353966; height:0px; overflow:hidden; }
+.backbtn:hover { color:#ccc; }
+
+input.field, textarea { display:block; width:96%; padding:1%; }
+.connectedonly { display:none; }
+.connected .connectedonly { display:block; }
+.connected .notconnected { display:none; }
+
+.page table { border-collapse:collapse; border:0; margin-bottom:15px; }
+.page table td { padding:3px 10px; }
+.page table td.first { text-align:left; }
+.page table td.last { text-align:right; }
+.page table tr.odd td { background:#eee; }
+
+.expand_head, .linklist a { background:#1d1e3c url(expand_head.png) bottom left repeat-x; padding:7px 10px; color:#fff; cursor:pointer; font-size:1.1em; font-weight:bold; border-top:#fff 1px solid; display:block; }
+.expand_head .icon, .linklist a .icon { width:17px; height:16px; overflow:hidden; float:right; background:url(arrows.png) 0px 0px no-repeat; }
+.expand_head.active .icon { background:url(arrows.png) -17px 0px no-repeat; }
+.expand_body { border:#1d1e3c 1px solid; }
+.expand_body .padding { padding:7px 10px; }
+
+.linklist { margin:0 0 15px; padding:0; list-style:none; }
+.linklist a .icon { background-position:top right; }
+
+@media (orientation:landscape) {
+	.content_circle { padding:0; }
+}
+
+@media (max-width: 600px), (max-device-width: 600px) {
+	body { font-size:70%; }
+	.content_circle .whycumbria { top:13%; left:39%; }
+	.content_circle .ourstrengths { top:54%; left:15%; }
+	.content_circle .successstories { top:28%; left:15%; }
+	.content_circle .newsevents { top:28%; left:64%; }
+	.content_circle .howwehelp { top:68%; left:39%; }
+	.content_circle .businessprop { top:52%; left:63%; }
+	.content_circle .contact { top:47%; left:40%; }
+	.header .back { background:url(header_left_small.png) bottom left no-repeat; }
+	.header .padding { background:url(header_right_small.png) bottom right no-repeat; }
 }
