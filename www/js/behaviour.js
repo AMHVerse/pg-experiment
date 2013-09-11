@@ -237,7 +237,7 @@ function fail(error) {
 }
 
 function resized() {
-	$('html,body').css({'height':'auto'});
+	$('html,body').css({'height':'100%'}).css({'height':'auto'});
 	$('.container').width($(window).width());
 	$('.nav-container').width($(window).width()*.6).height($(document).height());
 }
