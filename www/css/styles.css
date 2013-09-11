@@ -1,4 +1,4 @@
-html { padding:0px; margin:0px; }
+html { padding:0px; margin:0px; -webkit-tap-highlight-color: rgba(0,0,0,0); }
 body { padding:0px; margin:0px; font-family:Arial, Helvetica, sans-serif;  background:#35396d; font-size:90%;  font-weight:400; }
 h1, h2, h3, h4, h5, .h1, .h2, .h3, p { margin:0; padding:0 0 17px 0; font-weight:normal; }
 button { font-family:Arial, Helvetica, sans-serif; font-weight:600; }
@@ -60,6 +60,7 @@ img { max-width:100%; }
 .footer .icon img { max-width:70%; vertical-align:middle; }
 
 .btn { background:#353966; color:#fff; padding:10px; text-align:center; cursor:pointer; border-radius:7px; display:block; font-size:1.2em; border:0; }
+.btn:visited { color:#fff; }
 .btn.ui-disabled { background:#ebebeb; color:#2f8ddb; cursor:default; }
 .btn.ui-disabled a { color:#2f8ddb; }
 .actions { border-radius:7px; overflow:hidden; }
