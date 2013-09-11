@@ -168,10 +168,10 @@ function setupNavigation($p) {
 				}
 				
 				if(tX < tstartX - 50) {
-					inverse = true;
 					history.forward();
 				}
 				if(tX > tstartX + 50) {
+					inverse = true;
 					history.back();
 				}
 			}
