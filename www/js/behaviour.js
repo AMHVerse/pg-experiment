@@ -101,28 +101,30 @@ function gotoPage(targetid) {
 
 var xhr;
 function getPage(targetid) {
-	var url = targetid.replace('#','');
-	url += ".html";
-	
-	if(xhr) {
-		xhr.abort();
-	}
-	
-	xhr = $.ajax({
-		url:url,
-		dataType:'html',
-		success:function(data) {
-			var $p = $(targetid,data);
-			if($p.length == 0) {
-				$p = $('.page:first',data);
-				$p.attr('id',targetid.replace('#',''));
-			}
-			$('.pages').append($p);
-			setupNavigation($('.pages').children(':last'));
-			resized();
-			gotoPage(targetid);
+	if(targetid) {
+		var url = targetid.replace('#','');
+		url += ".html";
+		
+		if(xhr) {
+			xhr.abort();
 		}
-	});
+		
+		xhr = $.ajax({
+			url:url,
+			dataType:'html',
+			success:function(data) {
+				var $p = $(targetid,data);
+				if($p.length == 0) {
+					$p = $('.page:first',data);
+					$p.attr('id',targetid.replace('#',''));
+				}
+				$('.pages').append($p);
+				setupNavigation($('.pages').children(':last'));
+				resized();
+				gotoPage(targetid);
+			}
+		});
+	}
 }
 
 function setupNavigation($p) {
@@ -235,6 +237,7 @@ function fail(error) {
 }
 
 function resized() {
+	$('html,body').css({'height':'auto'});
 	$('.container').width($(window).width());
 	$('.nav-container').width($(window).width()*.6).height($(document).height());
 }
