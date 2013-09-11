@@ -160,7 +160,7 @@ function setupNavigation($p) {
 	}).bind('touchend', function(e) {
 		$p = $(this);
 		if(tstartX && tX) {
-			if(tX < tstartX - 100 || tX > tstartX + 100) {
+			if((tX < tstartX - 100 || tX > tstartX + 100) && tY - 100 > tstartY  && tY + 100 < tstartY ) {
 				if(tX < tstartX - 100 || tX > tstartX + 100) {
 					navused = false;
 					location.hash = '#'+$p.attr('id');
