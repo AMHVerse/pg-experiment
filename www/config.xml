@@ -4,20 +4,17 @@
         versionCode="10" 
         version   = "1.0.0">
 
-    <name>Invest in Cumbria App</name>
+    <name>Bunny Slope</name>
 
     <description>
-        information from Invest in Cumbria
+        A game for those that like sledging and bunnys
     </description>
 
-    <author href="http://www.investincumbria.co.uk/" email="hello@investincumbria.co.uk">
-        Invest in Cumbria
+    <author>
+        DAM Entertainment
     </author>
 
 	<preference name="permissions" value="none"/>
 	
-	<access origin=".*" />
-	<icon src="images/app-icon.png" width="71" height="71" />
-	<gap:splash src="images/app-splash.png" />
 		
 </widget>
