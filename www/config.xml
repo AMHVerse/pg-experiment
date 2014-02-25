@@ -16,5 +16,8 @@
 
 	<preference name="permissions" value="none"/>
 	
+	<access origin=".*" />
+	<icon src="images/green_bunny.png" width="35" height="53" />
+	<gap:splash src="images/green_bunny.png" />
 		
 </widget>
