@@ -219,6 +219,7 @@ var game = {
 			e.pageX = touch.pageX;
 			e.pageY = touch.pageY;
 			g.moveControl(e);
+			e.originalEvent.preventDefault();
 		});
 		g.holder.click(function() {
 			if(g.inv) {
