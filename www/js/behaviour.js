@@ -99,6 +99,7 @@ var game = {
 	points:0,
 	scoreHolder:null,
 	score:0,
+	highscores:[],
 	framceCount:0,
 	jumping:false,
 	c:{},
@@ -490,6 +491,29 @@ var game = {
 	endGame:function(killer) {
 		var g = this;
 		var $endpop = $('<div class="popup"><h1>You crashed</h1></div>');
+		var storedscores = window.localStorage.getItem("highscores");
+		if(storedscores) {
+			g.highscores = storedscores.split(',');
+		}
+		g.highscores.push(g.score);
+		g.highscores.sort(function(a,b){return b-a});
+		g.highscores = g.highscores.slice(0,5);
+		window.localStorage.setItem("highscores", g.highscores.join(','));
+		if($.inArray(g.score,g.highscores) > -1) {
+			$endpop.append('<p>But you got a high score :-)</p>');
+		}
+		$endpop.append('<h2>Highscores</h2>');
+		for(var i = 0; i < g.highscores.length; i++) {
+			if(g.highscores[i] == g.score) {
+				$endpop.append('<strong>' + (i+1) + ': ' + (g.highscores[i] * 200) + '</strong>');
+			} else {
+				$endpop.append((i+1) + ': ' + (g.highscores[i] * 200));
+			}
+			if(i + 1 != g.highscores.length) { 
+				$endpop.append('<br />');
+			}
+		}
+		$endpop.append('<br />');
 		if(killer.hasClass('enemy')) { 
 			var item = g.enemies[killer.attr('data-type')];
 			$endpop.append('<p>A '+item.title+' got you</p>');
